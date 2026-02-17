@@ -2,7 +2,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { ArtAsset, AssetCategory } from './types';
 import { INITIAL_ASSETS } from './constants';
-import { generateArtAsset } from './services/imageService';
+import { generateArtAsset } from './imageService';
 import { AssetCard } from './components/AssetCard';
 import JSZip from 'jszip';
 
