@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { ArtAsset, AssetCategory } from './types';
 import { INITIAL_ASSETS } from './constants';
 import { generateArtAsset } from './imageService';
-import { AssetCard } from './components/AssetCard';
+import { AssetCard } from './AssetCard';
 import JSZip from 'jszip';
 
 const App: React.FC = () => {
