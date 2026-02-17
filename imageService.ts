@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { STYLE_LOCK_SUFFIX } from "../constants";
 
@@ -11,8 +12,8 @@ export const generateArtAsset = async (
   let attempt = 0;
   
   while (attempt <= retries) {
-    // API key directly added here
-    const ai = new GoogleGenAI({ apiKey: "AIzaSyAiNiZ2VZhhD-tTEGHnv0zCkroGyot7pD4" });
+    // Create fresh instance to ensure latest API key is used
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     
     try {
       const fullPrompt = `${prompt} ${STYLE_LOCK_SUFFIX}`;
@@ -36,6 +37,7 @@ export const generateArtAsset = async (
         }
       }
       
+      // If we got a response but no image part
       throw new Error("No image data returned from model");
 
     } catch (error: any) {
@@ -44,6 +46,7 @@ export const generateArtAsset = async (
       const isServerError = error?.message?.includes("500") || error?.message?.includes("Rpc failed");
       
       if ((isRateLimit || isServerError) && attempt <= retries) {
+        // Exponential backoff: 2s, 4s, 8s...
         const delay = Math.pow(2, attempt) * 1000;
         console.warn(`Attempt ${attempt} failed (${error.message}). Retrying in ${delay}ms...`);
         await sleep(delay);
