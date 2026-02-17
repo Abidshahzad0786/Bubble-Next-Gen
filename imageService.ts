@@ -1,6 +1,6 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { STYLE_LOCK_SUFFIX } from "../constants";
+import { STYLE_LOCK_SUFFIX } from "./constants";
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
